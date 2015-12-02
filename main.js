@@ -17,14 +17,30 @@ app.on('window-all-closed', function() {
   }
 });
 
+
+var staticServer = require('node-static');
+
+//
+// Create a node-static server instance to serve the './public' folder
+//
+var server = new staticServer.Server('./');
+
+require('http').createServer(function (request, response) {
+    request.addListener('end', function () {
+        // Serve files!
+        server.serve(request, response);
+    }).resume();
+}).listen(8080);
+
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({width: 1440, height: 900});
 
   // and load the index.html of the app.
-  mainWindow.loadUrl('file://' + __dirname + '/index.html');
+  mainWindow.loadUrl('http://localhost:8080/snap/snap.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
