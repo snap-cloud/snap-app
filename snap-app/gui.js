@@ -7,9 +7,8 @@ IDE_Morph.prototype.saveFileAs = function (
 ) {
     
     var blobIsSupported = false,
-        world = this.world(),
-        fileExt,
-        dataURI, dialog;
+        myself = this,
+        fileExt;
 
     // fileType is a <kind>/<ext>;<charset> format.
     fileExt = fileType.split('/')[1].split(';')[0];
@@ -17,15 +16,18 @@ IDE_Morph.prototype.saveFileAs = function (
     fileExt = '.' + (fileExt === 'plain' ? 'txt' : fileExt);
 
     // This is a workaround for a known Chrome crash with large URLs
+    // TODO: Verify whether this is necessary in Electron
     function exhibitsChomeBug(contents) {
         var MAX_LENGTH = 2e6,
         isChrome  = navigator.userAgent.indexOf('Chrome') !== -1;
         return isChrome && contents.length > MAX_LENGTH;
     }
 
-    //saveFile(fileName, fileContents);
+    // saveFile(fileName, fileContents);
     var fs = require('fs');
-    var dialog = require('electron').dialog;
+    
+    // Convert images to node Buffers
+    // TODO: Handle other formats (sound?)
     if (fileExt === '.png') {
         nativeImage = require('electron').nativeImage
         img = nativeImage.createFromDataURL(contents);
@@ -38,21 +40,22 @@ IDE_Morph.prototype.saveFileAs = function (
     fs.writeFile(fileName + fileExt, contents, function (err, resp) {
         if (err) {
             console.log('Error! ', err);
-            world.showMessage('Oh Noes!' + err);
+            myself.showMessage('Oh Noes!' + err);
         } else {
             console.log('Saved??');
-            world.showMessage('Saved!');
+            myself.showMessage('Saved!');
         }
     });
     
-      // dialog.showSaveDialog({ filters: [
-      //    { name: 'text', extensions: ['txt'] }
-      //   ]}, function (fileName) {
-      //   if (fileName === undefined) return;
-      //   fs.writeFile(fileName, fContents, function (err) {
-      //    dialog.showMessageBox({ message: "The file has been saved! :-)",
-      //     buttons: ["OK"] });
-      //   });
-      // });
-
+    // This doesn't work right now, because it's the wrong electron "context"
+    var dialog = require('electron').dialog;
+    // dialog.showSaveDialog({ filters: [
+    //    { name: 'text', extensions: ['txt'] }
+    //   ]}, function (fileName) {
+    //   if (fileName === undefined) return;
+    //   fs.writeFile(fileName, fContents, function (err) {
+    //    dialog.showMessageBox({ message: "The file has been saved! :-)",
+    //     buttons: ["OK"] });
+    //   });
+    // });
 }
