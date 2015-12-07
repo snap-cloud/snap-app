@@ -36,20 +36,29 @@ require('http').createServer(function (request, response) {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1440, height: 900});
+    // Create the browser window.
+    mainWindow = new BrowserWindow({width: 1440, height: 900});
 
-  // and load the index.html of the app.
-  mainWindow.loadUrl('http://localhost:8080/snap/snap.html');
+    // and load the index.html of the app.
+    mainWindow.loadUrl('http://localhost:8080/snap/snap.html');
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools();
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
+
+    // Window settings
+    mainWindow.webSecurity = false;
+    mainWindow.allowDisplayingInsecureContent = true;
+    mainWindow.webaudio = true;
+    mainWindow.experimentalFeatures = true;
+    mainWindow.experimentalCanvasFeatures = true;
+
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function() {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        mainWindow = null;
+    });
+
 });
