@@ -35,8 +35,15 @@ IDE_Morph.prototype.saveFileAs = function (
     // TODO: Show a dialog, but that doesn't work?
     // TODO: What to do about encoding?
     
-    fs.writeFile(fileName + fileExt, contents);
-    console.log('Saved??');
+    fs.writeFile(fileName + fileExt, contents, function (err, resp) {
+        if (err) {
+            console.log('Error! ', err);
+            world.showMessage('Oh Noes!' + err);
+        } else {
+            console.log('Saved??');
+            world.showMessage('Saved!');
+        }
+    });
     
       // dialog.showSaveDialog({ filters: [
       //    { name: 'text', extensions: ['txt'] }
