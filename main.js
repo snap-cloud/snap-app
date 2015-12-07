@@ -1,8 +1,19 @@
-var app = require('app');  // Module to control application life.
-var BrowserWindow = require('browser-window');  // Module to create native browser window.
+// Native Modules
+var fs = require('fs');
+var http = require('http');
 
-// Report crashes to our server.
+// Electrom Modules
+// Module to control application life.
+var app = require('app'); 
+// Module to create native browser window.
+var BrowserWindow = require('browser-window');
+
+// Report crashes to the Electron server.
 require('crash-reporter').start();
+
+// Custom dependencies
+var staticServer = require('node-static');
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -18,35 +29,41 @@ app.on('window-all-closed', function() {
 });
 
 
-var staticServer = require('node-static');
-
 //
 // Create a node-static server instance to serve the './public' folder
 //
-var server = new staticServer.Server('./');
-
-require('http').createServer(function (request, response) {
+var snapServer = new staticServer.Server('./');
+var PORT = 8080;
+var server = http.createServer(function (request, response) {
     request.addListener('end', function () {
         // Serve files!
-        server.serve(request, response);
+        snapServer.serve(request, response);
     }).resume();
-}).listen(8080);
+});
 
+// TODO: try-catch loop
+server.listen(PORT);
+
+// attempt to disable caching:
+app.commandLine.appendSwitch('--disable-http-cache');
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
     // Create the browser window.
+    // TODO: Set automatically.
     mainWindow = new BrowserWindow({width: 1440, height: 900});
 
     // and load the index.html of the app.
-    mainWindow.loadUrl('http://localhost:8080/snap/snap.html');
+    mainWindow.loadURL('http://localhost:'+ PORT + '/snap.html');
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
 
 
     // Window settings
+    // TODO: these are tests, bbut document
+    
     mainWindow.webSecurity = false;
     mainWindow.allowDisplayingInsecureContent = true;
     mainWindow.webaudio = true;
@@ -62,3 +79,16 @@ app.on('ready', function() {
     });
 
 });
+
+// save As Stuff
+function saveFile (fName, fContents) {
+  dialog.showSaveDialog({ filters: [
+     { name: 'text', extensions: ['txt'] }
+    ]}, function (fileName) {
+    if (fileName === undefined) return;
+    fs.writeFile(fileName, fContents, function (err) {   
+     dialog.showMessageBox({ message: "The file has been saved! :-)",
+      buttons: ["OK"] });
+    });
+  }); 
+}
