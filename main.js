@@ -1,15 +1,18 @@
+console.log('here');
 // Native Modules
 var fs = require('fs');
 var http = require('http');
-
+console.log('required');
 // Electrom Modules
 // Module to control application life.
-var app = require('app'); 
+
+var electron = require('electron');
+var app = electron.app;
 // Module to create native browser window.
-var BrowserWindow = require('browser-window');
+var BrowserWindow = electron.BrowserWindow;
 
 // Report crashes to the Electron server.
-require('crash-reporter').start();
+electron.crashReporter.start();
 
 // Custom dependencies
 var staticServer = require('node-static');
@@ -21,21 +24,22 @@ var mainWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform != 'darwin') {
-    app.quit();
-  }
+    // On OS X it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (process.platform != 'darwin') {
+        app.quit();
+    }
 });
 
-
+console.log('pre-server create');
 //
 // Create a node-static server instance to serve the './public' folder
 //
-var snapServer = new staticServer.Server('./');
+var snapServer = new staticServer.Server('.');
+console.log('post server');
 var PORT = 8080;
-var server = http.createServer(function (request, response) {
-    request.addListener('end', function () {
+var server = http.createServer(function(request, response) {
+    request.addListener('end', function() {
         // Serve files!
         snapServer.serve(request, response);
     }).resume();
@@ -52,18 +56,21 @@ app.commandLine.appendSwitch('--disable-http-cache');
 app.on('ready', function() {
     // Create the browser window.
     // TODO: Set automatically.
-    mainWindow = new BrowserWindow({width: 1440, height: 900});
+    mainWindow = new BrowserWindow({
+        width: 1000,
+        height: 700
+    });
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://localhost:'+ PORT + '/snap.html');
+    mainWindow.loadURL('http://localhost:' + PORT + '/snap.html');
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
 
 
     // Window settings
-    // TODO: these are tests, bbut document
-    
+    // TODO: these are tests
+
     mainWindow.webSecurity = false;
     mainWindow.allowDisplayingInsecureContent = true;
     mainWindow.webaudio = true;
@@ -81,14 +88,20 @@ app.on('ready', function() {
 });
 
 // save As Stuff
-function saveFile (fName, fContents) {
-  dialog.showSaveDialog({ filters: [
-     { name: 'text', extensions: ['txt'] }
-    ]}, function (fileName) {
-    if (fileName === undefined) return;
-    fs.writeFile(fileName, fContents, function (err) {   
-     dialog.showMessageBox({ message: "The file has been saved! :-)",
-      buttons: ["OK"] });
+
+function saveFile(fName, fContents) {
+    dialog.showSaveDialog({
+        filters: [{
+            name: 'text',
+            extensions: ['txt']
+        }]
+    }, function(fileName) {
+        if (fileName === undefined) return;
+        fs.writeFile(fileName, fContents, function(err) {
+            dialog.showMessageBox({
+                message: "The file has been saved! :-)",
+                buttons: ["OK"]
+            });
+        });
     });
-  }); 
 }
