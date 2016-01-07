@@ -1,21 +1,21 @@
-console.log('here');
 // Native Modules
 var fs = require('fs');
 var http = require('http');
-console.log('required');
+
 // Electrom Modules
 // Module to control application life.
-
 var electron = require('electron');
+
+// Custom dependencies
+var staticServer = require('node-static');
+
+
 var app = electron.app;
 // Module to create native browser window.
 var BrowserWindow = electron.BrowserWindow;
 
 // Report crashes to the Electron server.
 electron.crashReporter.start();
-
-// Custom dependencies
-var staticServer = require('node-static');
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -31,13 +31,12 @@ app.on('window-all-closed', function() {
     }
 });
 
-console.log('pre-server create');
 //
 // Create a node-static server instance to serve the './public' folder
 //
 var snapServer = new staticServer.Server('.');
-console.log('post server');
-var PORT = 8080;
+
+var PORT = 8000;
 var server = http.createServer(function(request, response) {
     request.addListener('end', function() {
         // Serve files!
