@@ -59,3 +59,10 @@ IDE_Morph.prototype.saveFileAs = function (
     //   });
     // });
 }
+
+// Override paths because snap content lives in snap/*
+// Our snap is served from /snap.html
+IDE_Morph.prototype.resourceURL = function () {
+    var args = Array.prototype.slice.call(arguments, 0);
+    return '/snap/' + args.join('/');
+};
