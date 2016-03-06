@@ -55,9 +55,11 @@ app.commandLine.appendSwitch('--disable-http-cache');
 app.on('ready', function() {
     // Create the browser window.
     // TODO: Set automatically.
+    // 
     mainWindow = new BrowserWindow({
         width: 1000,
-        height: 700
+        height: 700,
+        frame: false
     });
 
     // and load the index.html of the app.
@@ -86,8 +88,9 @@ app.on('ready', function() {
 
 });
 
-// save As Stuff
 
+
+// save As Stuff
 function saveFile(fName, fContents) {
     dialog.showSaveDialog({
         filters: [{
