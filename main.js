@@ -15,7 +15,7 @@ var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 
 // Report crashes to the Electron server.
-electron.crashReporter.start();
+electron.crashReporter.start('Snap! Desktop App');
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -31,9 +31,9 @@ app.on('window-all-closed', function() {
     }
 });
 
-//
-// Create a node-static server instance to serve the './public' folder
-//
+// Create a node-static server for serving snap resources the same way
+// they are on the web
+// TODO: Perhaps we should just override this with a file that uses `fs`?
 var snapServer = new staticServer.Server('.');
 
 var PORT = 8000;
@@ -58,14 +58,14 @@ app.on('ready', function() {
     // 
     mainWindow = new BrowserWindow({
         width: 1000,
-        height: 700,
-        frame: false
+        height: 700
     });
 
     // and load the index.html of the app.
     mainWindow.loadURL('http://localhost:' + PORT + '/snap.html');
 
     // Open the DevTools.
+    // TODO: put behind a dev flag.
     mainWindow.webContents.openDevTools();
 
 
