@@ -45,6 +45,7 @@ Before you install the app, you'll need:
 git clone --recursive git@github.com:cycomachead/snap-app
 cd snap-app
 npm install -g electron
+cd app/ && npm install && cd ..
 npm install
 npm run start
 ```

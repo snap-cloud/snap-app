@@ -14,9 +14,6 @@ var app = electron.app;
 // Module to create native browser window.
 var BrowserWindow = electron.BrowserWindow;
 
-// Report crashes to the Electron server.
-electron.crashReporter.start('Snap! Desktop App');
-
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -62,7 +59,7 @@ app.on('ready', function() {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://localhost:' + PORT + '/snap.html');
+    mainWindow.loadURL('http://localhost:' + PORT + '/app/snap.html');
 
     // Open the DevTools.
     // TODO: put behind a dev flag.
