@@ -4,20 +4,7 @@
   "description": "Snap! | Build Your Own Blocks",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js $@",
-    "compile": "node build/compile.js",
-
-    "clean": "rm -rf ./binaries/osx/ ./binaries/osx/",
-    "clean:osx": "rm -rf ./binaries/osx",
-    "clean:win": "rm -rf ./binaries/win",
-
-    "app": "npm run clean && npm run build:osx && npm run build:win",
-    "pack:osx": "npm run clean:osx && electron-packager ./app \"Snap\" --out=binaries/osx --platform=darwin --arch=x64 --version=0.36.1 --icon=assets/osx/snap.png",
-    "pack:win": "npm run clean:win && electron-packager ./app \"Snap\" --out=binaries/win --platform=win32 --arch=ia32 --version=0.36.1 --icon=assets/win/icon.ico",
-
-    "build": "npm run pack:osx && npm run pack:win",
-    "build:osx": "npm run build:osx && electron-builder \"binaries/osx/Snap.app\" --platform=osx --out=\"binaries/osx\" --config=builder.json",
-    "build:win": "npm run build:win && electron-builder \"binaries/win/Snap-win32\" --platform=win --out=\"binaries/win\" --config=builder.json"
+    "start": "electron main.js $@"
   },
   "repository": {
     "type": "git",
@@ -38,14 +25,16 @@
   },
   "homepage": "https://github.com/cycomachead/snap-app#readme",
   "devDependencies": {
-    "electron-builder": "^2.5.0",
-    "electron-packager": "^5.1.1",
-    "electron-prebuilt": "^0.36.0"
+    "electron-builder": "^7.23.x",
+    "electron-prebuilt": "^1.x.x"
   },
   "dependencies": {
     "node-static": "^0.7.7"
   },
   "peer-dependencies": {
       "electron": "^1.x.x"
+  },
+  "engines": {
+      "node": "^6.x.x"
   }
 }
