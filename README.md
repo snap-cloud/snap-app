@@ -5,7 +5,7 @@ A desktop application for [Snap<em>!</em>][snap]
 [snap]: https://github.com/jmoenig/Snap--Build-Your-Own-Blocks
 
 ## Download & Use
-To download the application for your own use, visit the [releases page][releases]. 
+To download the application for your own use, visit the [releases page][releases].
 
 [releases]: https://github.com/cycomachead/snap-app/releases/latest
 
@@ -34,7 +34,21 @@ git clone --recursive git@github.com:cycomachead/snap-app
 ```
 (or you can manually setup the submodules yourself, if you're into that thing.)
 
-#### Code 
+#### Quick Start
+Before you install the app, you'll need:
+
+* `git` (probably already installed)
+* `node` (nodeJS >6.0)
+* `electron` (TODO)
+
+```
+git clone --recursive git@github.com:cycomachead/snap-app
+cd snap-app
+npm install -g electron
+npm install
+npm run start
+```
+#### Code
 * `app/`
    * `snap/` - don't touch this. It's a direct copy of the latest Snap<em>!</em> source code.
    * `snap-app/` - the modifications that make this app work.
