@@ -1,30 +1,44 @@
-# electron-quick-start
+# Snap<em>!</em>-App
 
-**Clone and run for a quick way to see an Electron in action.**
+A desktop application for [Snap<em>!</em>][snap]
 
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start) within the Electron documentation.
+[snap]: https://github.com/jmoenig/Snap--Build-Your-Own-Blocks
 
-A basic Electron application needs just these files:
+## Download & Use
+To download the application for your own use, visit the [releases page][releases]. 
 
-- `index.html` - A web page to render.
-- `main.js` - Starts the app and creates a browser window to render HTML.
-- `package.json` - Points to the app's main file and lists its details and dependencies.
+[releases]: https://github.com/cycomachead/snap-app/releases/latest
 
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start).
+(Sorry for the cryptic file names. We'll work on cleaning those up!)
 
-## To Use
+Supported platforms:
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+* macOS & OS X
+	* The file name should have "drawin" in it - you probably want the `.zip` version.
+	* Minimum OS required: OS X 10.tbd
+* Windows
+	* Minimum OS required: I have no idea. (yet)
+* Linux (?)
+	* Minimum OS required: I have no idea. (yet.)
+	* I don't think auto-update will work.
 
-```bash
-# Clone this repository
-$ git clone https://github.com/atom/electron-quick-start
-# Go into the repository
-$ cd electron-quick-start
-# Install dependencies and run the app
-$ npm install && npm start
+## Overview
+
+This app is built using Electron, a node.JS-based framework for building desktop applications using Javascript and other web technologies (such as the way Snap<em>!</em> is built. :smile:)
+
+#### Cloning
+**NOTE:** This project uses submodules! You must clone with `--recursive`
+
+```sh
+git clone --recursive git@github.com:cycomachead/snap-app
 ```
+(or you can manually setup the submodules yourself, if you're into that thing.)
 
-Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
+#### Code 
+* `app/`
+   * `snap/` - don't touch this. It's a direct copy of the latest Snap<em>!</em> source code.
+   * `snap-app/` - the modifications that make this app work.
+   * `snap.html` - the main file that serves the app
+   * `main.js` - the entry point for starting the app.
 
-#### License [CC0 (Public Domain)](LICENSE.md)
+#### License [AGPL](LICENSE.md)
