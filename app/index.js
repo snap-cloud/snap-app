@@ -90,7 +90,7 @@ app.on('ready', function() {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://localhost:' + PORT + '/app/snap.html');
+    mainWindow.loadURL('http://localhost:' + PORT);
 
     // Open the DevTools.
     // TODO: put behind a dev flag.

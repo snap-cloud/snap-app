@@ -2,7 +2,7 @@
   "name": "Snap!",
   "version": "0.0.1",
   "description": "Snap! | Build Your Own Blocks",
-  "main": "main.js",
+  "main": "app/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cycomachead/snap-app.git"
@@ -42,7 +42,7 @@
     }
   },
   "scripts": {
-    "start": "electron app/main.js $@",
+    "start": "electron app/index.js $@",
     "pack": "build --dir",
     "dist": "build"
   }

@@ -53,7 +53,7 @@ npm run start
    * `snap/` - don't touch this. It's a direct copy of the latest Snap<em>!</em> source code.
    * `snap-app/` - the modifications that make this app work.
    * `snap.html` - the main file that serves the app
-   * `main.js` - the entry point for starting the app.
+   * `index.js` - the entry point for starting the app.
 
 #### Building The App
 
