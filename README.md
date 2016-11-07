@@ -45,7 +45,6 @@ Before you install the app, you'll need:
 git clone --recursive git@github.com:cycomachead/snap-app
 cd snap-app
 npm install -g electron
-cd app/ && npm install && cd ..
 npm install
 npm run start
 ```
@@ -55,5 +54,22 @@ npm run start
    * `snap-app/` - the modifications that make this app work.
    * `snap.html` - the main file that serves the app
    * `main.js` - the entry point for starting the app.
+
+#### Building The App
+
+##### Dependencies
+This section is TODO.
+
+* Code Signing
+* Publishing to GitHub
+
+```
+brew install wine --without-x11 # windows
+brew install mono
+brew install gnu-tar graphicsmagick xz #linux
+```
+[More info][deps]
+
+[deps]: https://github.com/electron-userland/electron-builder/wiki/Multi-Platform-Build
 
 #### License [AGPL](LICENSE.md)

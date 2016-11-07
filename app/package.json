@@ -1,8 +1,12 @@
 {
-  "dependencies": {
-    "node-static": "^0.7.7"
-  },
-  "engines": {
-      "node": "^6.x.x"
-  }
+    "name": "Snap",
+    "author": "Jens Mönig, Brian Harvey, Michael Ball",
+    "version": "0.0.1",
+    "description": "Coming Soon",
+    "dependencies": {
+        "node-static": "^0.7.7"
+    },
+    "engines": {
+        "node": "^6.x.x"
+    }
 }

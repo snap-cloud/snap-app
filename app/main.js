@@ -72,8 +72,7 @@ BLINK_FEATURES = [
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
     // Create the browser window.
-    // TODO: Set automatically.
-    // 
+    // TODO: Set automatically fill screen
     mainWindow = new BrowserWindow({
         width: 1000,
         height: 700,

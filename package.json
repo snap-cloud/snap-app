@@ -1,11 +1,8 @@
 {
-  "name": "snap-app",
-  "version": "1.0.0",
+  "name": "Snap!",
+  "version": "0.0.1",
   "description": "Snap! | Build Your Own Blocks",
   "main": "main.js",
-  "scripts": {
-    "start": "electron app/main.js $@"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cycomachead/snap-app.git"
@@ -28,13 +25,25 @@
     "electron-builder": "^7.23.x",
     "electron-prebuilt": "^1.x.x"
   },
-  "dependencies": {
-    "node-static": "^0.7.7"
-  },
+  "postinstall": "install-app-deps",
   "peer-dependencies": {
       "electron": "^1.x.x"
   },
   "engines": {
-      "node": "^6.x.x"
+      "node": "^6.5.x"
+  },
+  "build": {
+    "appId": "com.ucberkeley.snap-desktop-app",
+    "mac": {
+      "category": "com.ucberkeley.snap-desktop-app"
+    },
+    "win": {
+      "iconUrl": "http://snap.berkeley.edu/snapsource/favicon.ico"
+    }
+  },
+  "scripts": {
+    "start": "electron app/main.js $@",
+    "pack": "build --dir",
+    "dist": "build"
   }
 }
