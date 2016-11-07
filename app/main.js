@@ -33,7 +33,9 @@ app.on('window-all-closed', function() {
 // TODO: Perhaps we should just override this with a file that uses `fs`?
 var snapServer = new staticServer.Server('.');
 
-var PORT = 8000;
+var getPort = () => parseInt(Math.random()*65536);
+
+var PORT;
 var server = http.createServer(function(request, response) {
     request.addListener('end', function() {
         // Serve files!
@@ -41,8 +43,20 @@ var server = http.createServer(function(request, response) {
     }).resume();
 });
 
-// TODO: try-catch loop
-server.listen(PORT);
+// Make sure that the 
+function startStaticServer() {
+    PORT = 800 0; getPort();
+    try {
+        server.listen(PORT);
+    } catch (e) {
+        startStaticServer();
+    }
+}
+
+startStaticServer();
+
+console.log(server);
+console.log(PORT);
 
 // attempt to disable caching:
 app.commandLine.appendSwitch('--disable-http-cache');
