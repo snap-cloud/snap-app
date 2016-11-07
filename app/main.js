@@ -56,7 +56,7 @@ function startStaticServer() {
 startStaticServer();
 
 // attempt to disable caching:
-app.commandLine.appendSwitch('--disable-http-cache');
+app.commandLine.appendSwitch('disable-http-cache');
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -66,7 +66,18 @@ app.on('ready', function() {
     // 
     mainWindow = new BrowserWindow({
         width: 1000,
-        height: 700
+        height: 700,
+
+        // Security Settings
+        allowRunningInsecureContent: false, // TODO
+        allowDisplayingInsecureContent: true,
+        // Chrome Overrides
+        experimentalFeatures: true,
+        experimentalCanvasFeatures: true,
+        blinkFeatures: '',
+        defaultFontFamily: 'sansSerif',
+        defaultEncoding: 'UTF-8',
+        offscreen: true
     });
 
     // and load the index.html of the app.
@@ -79,24 +90,23 @@ app.on('ready', function() {
 
     // Window settings
     // TODO: these are tests
-
     mainWindow.webSecurity = false;
-    mainWindow.allowDisplayingInsecureContent = true;
-    mainWindow.webaudio = true;
-    mainWindow.experimentalFeatures = true;
-    mainWindow.experimentalCanvasFeatures = true;
 
+    mainWindow.onbeforeunload = () => {};
+    
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
-        process.exit(0);
     });
 
 });
 
+app.on('window-all-closed', () => {
+  app.quit()
+});
 
 
 // save As Stuff
