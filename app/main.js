@@ -45,7 +45,7 @@ var server = http.createServer(function(request, response) {
 
 // Make sure that the 
 function startStaticServer() {
-    PORT = 800 0; getPort();
+    PORT = getPort();
     try {
         server.listen(PORT);
     } catch (e) {
@@ -54,9 +54,6 @@ function startStaticServer() {
 }
 
 startStaticServer();
-
-console.log(server);
-console.log(PORT);
 
 // attempt to disable caching:
 app.commandLine.appendSwitch('--disable-http-cache');
@@ -95,6 +92,7 @@ app.on('ready', function() {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null;
+        process.exit(0);
     });
 
 });
@@ -109,10 +107,12 @@ function saveFile(fName, fContents) {
             extensions: ['txt']
         }]
     }, function(fileName) {
-        if (fileName === undefined) return;
+        if (fileName === undefined) {
+            return;
+        }
         fs.writeFile(fileName, fContents, function(err) {
             dialog.showMessageBox({
-                message: "The file has been saved! :-)",
+                message: "The file has been saved!",
                 buttons: ["OK"]
             });
         });
