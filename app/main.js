@@ -58,6 +58,16 @@ startStaticServer();
 // attempt to disable caching:
 app.commandLine.appendSwitch('disable-http-cache');
 
+// EXPERIMENTAL TEST FEATURES:
+BLINK_FEATURES = [
+    'Accelerated2dCanvas',
+    'EnableCanvas2dDynamicRenderingModeSwitching',
+    'Canvas2dImageChromium',
+    'Canvas2dFixedRenderingMode',
+    'ExperimentalCanvasFeatures',
+    'MediaCaptureFromCanvas'
+];
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
@@ -74,7 +84,7 @@ app.on('ready', function() {
         // Chrome Overrides
         experimentalFeatures: true,
         experimentalCanvasFeatures: true,
-        blinkFeatures: '',
+        blinkFeatures: BLINK_FEATURES.join(','),
         defaultFontFamily: 'sansSerif',
         defaultEncoding: 'UTF-8',
         offscreen: true
