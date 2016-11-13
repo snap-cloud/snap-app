@@ -8,7 +8,6 @@ const http = require('http');
 const {app, BrowserWindow} = require('electron');
 
 // Custom dependencies
-const staticServer = require('node-static');
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -23,33 +22,6 @@ app.on('window-all-closed', function() {
         app.quit();
     }
 });
-
-// Create a node-static server for serving snap resources the same way
-// they are on the web
-// TODO: Perhaps we should just override this with a file that uses `fs`?
-var snapServer = new staticServer.Server('.');
-
-var getPort = () => parseInt(Math.random()*65536);
-
-var PORT;
-var server = http.createServer(function(request, response) {
-    request.addListener('end', function() {
-        // Serve files!
-        snapServer.serve(request, response);
-    }).resume();
-});
-
-// Make sure that the 
-function startStaticServer() {
-    PORT = getPort();
-    try {
-        server.listen(PORT);
-    } catch (e) {
-        startStaticServer();
-    }
-}
-
-startStaticServer();
 
 // attempt to disable caching:
 app.commandLine.appendSwitch('disable-http-cache');
@@ -69,6 +41,7 @@ BLINK_FEATURES = [
 app.on('ready', function() {
     // Create the browser window.
     // TODO: Set automatically fill screen
+    // TODO: or use previous settings?
     mainWindow = new BrowserWindow({
         width: 1000,
         height: 700,
@@ -85,14 +58,11 @@ app.on('ready', function() {
         offscreen: true
     });
 
-    //require('repl').start('> ');
-    // and load the index.html of the app.
     mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
-    // 'http://localhost:' + PORT + '/' + process.argv[1]
+        pathname: path.join(__dirname, 'index.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
     
     // Open the DevTools.
     // TODO: put behind a dev flag.

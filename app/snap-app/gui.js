@@ -64,13 +64,13 @@ IDE_Morph.prototype.saveFileAs = function (
 // Our snap is served from /snap.html
 IDE_Morph.prototype.resourceURL = function () {
     var args = Array.prototype.slice.call(arguments, 0);
-    return '/snap/' + args.join('/');
+    return 'snap/' + args.join('/');
 };
 
 const fs = require('fs');
 const path = require('path');
-IDE_Morph.prototype.getURL = (resourcePath) => {
-    console.log('GET URL CALLED', resourcePath);
-    var file = fs.readFileSync(path.join(process.cwd(), 'app', resourcePath));
+IDE_Morph.prototype.getURL = function(resourcePath) {
+    let filePath = path.join(process.cwd(), 'app', resourcePath);
+    let file = fs.readFileSync(filePath);
     return file.toString();
 }

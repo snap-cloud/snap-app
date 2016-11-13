@@ -3,10 +3,8 @@
     "author": "Jens Mönig, Brian Harvey, Michael Ball",
     "version": "0.0.1",
     "main": "index.js",
-    "description": "Coming Soon",
-    "dependencies": {
-        "node-static": "^0.7.7"
-    },
+    "description": "An offline desktop Snap! app",
+    "dependencies": {},
     "engines": {
         "node": "^6.x.x"
     }
