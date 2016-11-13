@@ -1,23 +1,19 @@
 // Native Modules
-var fs = require('fs');
-var http = require('http');
+const path = require('path')
+const url = require('url')
+const fs = require('fs');
+const http = require('http');
 
 // Electrom Modules
-// Module to control application life.
-var electron = require('electron');
+const {app, BrowserWindow} = require('electron');
 
 // Custom dependencies
-var staticServer = require('node-static');
-
-
-var app = electron.app;
-// Module to create native browser window.
-var BrowserWindow = electron.BrowserWindow;
+const staticServer = require('node-static');
 
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-var mainWindow = null;
+let mainWindow;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -89,9 +85,15 @@ app.on('ready', function() {
         offscreen: true
     });
 
+    //require('repl').start('> ');
     // and load the index.html of the app.
-    mainWindow.loadURL('http://localhost:' + PORT);
-
+    mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'index.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+    // 'http://localhost:' + PORT + '/' + process.argv[1]
+    
     // Open the DevTools.
     // TODO: put behind a dev flag.
     mainWindow.webContents.openDevTools();
