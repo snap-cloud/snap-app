@@ -16,7 +16,8 @@ const updater = require('./autoUpdate');
 let mainWindow;
 
 // Check for dev mode.
-let DEV_MODE = process.env.NODE_ENV === 'development';
+let DEV_MODE = process.env.NODE_ENV === 'development' ||
+                   process.argv[0].indexOf('electron') !== -1;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -63,9 +64,12 @@ app.on('ready', function() {
     }));
 
     if (DEV_MODE) {
-        mainWindow.webContents.openDevTools();
     }
-
+    mainWindow.webContents.openDevTools();
+    
+    // Check for updates
+    updater(mainWindow);
+    
     // Window settings
     // TODO: these are tests
     mainWindow.webSecurity = false;

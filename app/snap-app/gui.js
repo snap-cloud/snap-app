@@ -1,14 +1,26 @@
+//
 const fs = require('fs');
 const path = require('path');
+const url = require('url');
 
-IDE_Morph.prototype.originalSaveFileAs = IDE_Morph.prototype.saveFileAs;
-IDE_Morph.prototype.saveFileAs = function (
-    contents,
-    fileType,
-    fileName,
-    newWindow
-) {
-    
+const {nativeImage} = require('electron');
+
+// Hold Proxied Functions
+// TODO: Consider using ES6 Proxies?
+GLOBAL_DEFINITIONS = {};
+
+function originalMethod(functionName) {
+    return GLOBAL_DEFINITIONS[functionName];
+}
+
+function defineProxy(functionName, functionBody) {
+    GLOBAL_DEFINITIONS[functionName] = IDE_Morph.prototype[functionName];
+    IDE_Morph.prototype[functionName] = functionBody;
+    return functionName;
+}
+
+defineProxy('saveFileAs',
+            function (contents, fileType, fileName, newWindow) {
     var blobIsSupported = false,
         myself = this,
         fileExt;
@@ -27,12 +39,10 @@ IDE_Morph.prototype.saveFileAs = function (
     }
 
     // saveFile(fileName, fileContents);
-    var fs = require('fs');
     
     // Convert images to node Buffers
     // TODO: Handle other formats (sound?)
     if (fileExt === '.png') {
-        nativeImage = require('electron').nativeImage
         img = nativeImage.createFromDataURL(contents);
         contents = img.toPng();
     }
@@ -51,7 +61,7 @@ IDE_Morph.prototype.saveFileAs = function (
     });
     
     // This doesn't work right now, because it's the wrong electron "context"
-    var dialog = require('electron').dialog;
+    // var dialog = require('electron').dialog;
     // dialog.showSaveDialog({ filters: [
     //    { name: 'text', extensions: ['txt'] }
     //   ]}, function (fileName) {
@@ -61,17 +71,21 @@ IDE_Morph.prototype.saveFileAs = function (
     //     buttons: ["OK"] });
     //   });
     // });
-}
+})
 
 // Override paths because snap content lives in snap/*
 // Our snap is served from /snap.html
-IDE_Morph.prototype.resourceURL = function () {
+defineProxy('resourceURL', function () {
     var args = Array.prototype.slice.call(arguments, 0);
     return 'snap/' + args.join('/');
-};
+});
 
-IDE_Morph.prototype.getURL = function(resourcePath) {
+
+defineProxy('getURL', function(resourcePath) {
+    if (url.parse(resourcePath).protocol) {
+        return originalMethod('getURL')(resourcePath);
+    }
     let filePath = path.join(__dirname, resourcePath);
     let file = fs.readFileSync(filePath);
     return file.toString();
-}
+});
