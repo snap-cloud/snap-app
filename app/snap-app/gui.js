@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 IDE_Morph.prototype.originalSaveFileAs = IDE_Morph.prototype.saveFileAs;
 IDE_Morph.prototype.saveFileAs = function (
     contents,
@@ -67,8 +70,6 @@ IDE_Morph.prototype.resourceURL = function () {
     return 'snap/' + args.join('/');
 };
 
-const fs = require('fs');
-const path = require('path');
 IDE_Morph.prototype.getURL = function(resourcePath) {
     let filePath = path.join(process.cwd(), 'app', resourcePath);
     let file = fs.readFileSync(filePath);
