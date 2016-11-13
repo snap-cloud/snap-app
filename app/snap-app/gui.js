@@ -64,6 +64,6 @@ IDE_Morph.prototype.saveFileAs = function (
 // Our snap is served from /snap.html
 IDE_Morph.prototype.resourceURL = function () {
     var args = Array.prototype.slice.call(arguments, 0);
-    return '/app/snap/' + args.join('/');
+    return '/snap/' + args.join('/');
 };
 
