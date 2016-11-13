@@ -71,7 +71,7 @@ IDE_Morph.prototype.resourceURL = function () {
 };
 
 IDE_Morph.prototype.getURL = function(resourcePath) {
-    let filePath = path.join(process.cwd(), 'app', resourcePath);
+    let filePath = path.join(__dirname, resourcePath);
     let file = fs.readFileSync(filePath);
     return file.toString();
 }
