@@ -33,9 +33,9 @@
       "node": "^6.5.x"
   },
   "build": {
-    "appId": "com.ucberkeley.snap-desktop-app",
+    "appId": "4B3BUC258D.edu.berkeley.snap.snapapp",
     "mac": {
-      "category": "com.ucberkeley.snap-desktop-app"
+      "category": "4B3BUC258D.edu.berkeley.snap.snapapp"
     },
     "win": {
       "iconUrl": "http://snap.berkeley.edu/snapsource/favicon.ico"
@@ -44,6 +44,7 @@
   "scripts": {
     "start": "electron app/index.js $@",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "build",
+    "release": "build"
   }
 }

@@ -9,13 +9,14 @@ const electron = require('electron');
 const {app, BrowserWindow} = electron;
 
 // Local Modules
-
-const updater = require('./autoUpdate')
-
+const updater = require('./autoUpdate');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+// Check for dev mode.
+let DEV_MODE = process.env.NODE_ENV === 'development';
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -43,19 +44,12 @@ BLINK_FEATURES = [
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
     // Create the browser window.
-    
     const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
-    
     mainWindow = new BrowserWindow({
         width: width,
         height: height,
 
-        // Security Settings
-        allowRunningInsecureContent: false, // TODO
-        allowDisplayingInsecureContent: true,
         // Chrome Overrides
-        experimentalFeatures: true,
-        experimentalCanvasFeatures: true,
         blinkFeatures: BLINK_FEATURES.join(','),
         defaultFontFamily: 'sansSerif',
         defaultEncoding: 'UTF-8',
@@ -89,12 +83,11 @@ app.on('ready', function() {
 
 });
 
-app.on('window-all-closed', () => {
-  app.quit()
-});
+app.on('window-all-closed', () => { app.quit() });
 
 
 // save As Stuff
+// TODO: Relocat this.
 function saveFile(fName, fContents) {
     dialog.showSaveDialog({
         filters: [{
