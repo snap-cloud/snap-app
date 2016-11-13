@@ -66,7 +66,6 @@ app.on('ready', function() {
         mainWindow.webContents.openDevTools();
     }
 
-
     // Window settings
     // TODO: these are tests
     mainWindow.webSecurity = false;

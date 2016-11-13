@@ -1,6 +1,6 @@
 {
     "name": "Snap!",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "description": "Snap! | Build Your Own Blocks",
     "main": "app/index.js",
     "repository": {
@@ -53,5 +53,6 @@
         "pack": "build --dir",
         "dist": "build",
         "release": "build"
-    }
+    },
+    "private": true
 }
