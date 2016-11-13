@@ -5,9 +5,12 @@ const fs = require('fs');
 const http = require('http');
 
 // Electrom Modules
-const {app, BrowserWindow} = require('electron');
+const electron = require('electron');
+const {app, BrowserWindow} = electron;
 
-// Custom dependencies
+// Local Modules
+
+const updater = require('./autoUpdate')
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -40,11 +43,12 @@ BLINK_FEATURES = [
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
     // Create the browser window.
-    // TODO: Set automatically fill screen
-    // TODO: or use previous settings?
+    
+    const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
+    
     mainWindow = new BrowserWindow({
-        width: 1000,
-        height: 700,
+        width: width,
+        height: height,
 
         // Security Settings
         allowRunningInsecureContent: false, // TODO
