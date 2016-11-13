@@ -61,10 +61,10 @@ app.on('ready', function() {
         protocol: 'file:',
         slashes: true
     }));
-    
-    // Open the DevTools.
-    // TODO: put behind a dev flag.
-    mainWindow.webContents.openDevTools();
+
+    if (DEV_MODE) {
+        mainWindow.webContents.openDevTools();
+    }
 
 
     // Window settings
