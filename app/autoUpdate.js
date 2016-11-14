@@ -17,6 +17,21 @@ const updateMsg = 'The new version has been downloaded. Please restart the appli
 
 function initializeAutoUpdater(mainWindow) {
     autoUpdater.on('update-downloaded', updateFunction(mainWindow));
+    autoUpdater.on('error', () => {
+        console.log('Auto Update Error');
+    });
+
+    autoUpdater.on('checking-for-update', () => {
+        console.log('checking for update');
+    });
+
+    autoUpdater.on('update-available', () => {
+        console.log('there is an update available');
+    });
+
+    autoUpdater.on('update-not-available', () => {
+        console.log('no update');
+    });
 }
 
 function updateFunction(mainWindow) {

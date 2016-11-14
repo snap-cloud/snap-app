@@ -49,7 +49,7 @@
         }
     },
     "scripts": {
-        "start": "electron app/index.js $@",
+        "start": "electron app $@",
         "pack": "build --dir",
         "dist": "build",
         "release": "build"

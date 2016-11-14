@@ -64,8 +64,8 @@ app.on('ready', function() {
     }));
 
     if (DEV_MODE) {
+        mainWindow.webContents.openDevTools();
     }
-    mainWindow.webContents.openDevTools();
     
     // Check for updates
     updater(mainWindow);
