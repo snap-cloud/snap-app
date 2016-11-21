@@ -1,58 +1,55 @@
 {
-    "name": "Snap!",
-    "version": "0.0.4",
-    "description": "Snap! | Build Your Own Blocks",
-    "main": "app/index.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/cycomachead/snap-app.git"
+  "name": "Snap!",
+  "version": "0.0.5",
+  "description": "Snap! | Build Your Own Blocks",
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cycomachead/snap-app.git"
+  },
+  "keywords": [
+    "Snap",
+    "programming",
+    "blocks",
+    "computer science",
+    "education",
+    "coding"
+  ],
+  "author": "Michael Ball, Jens Mönig, Brian Harvey",
+  "license": "AGPL",
+  "bugs": {
+    "url": "https://github.com/cycomachead/snap-app/issues"
+  },
+  "homepage": "https://github.com/cycomachead/snap-app#readme",
+  "devDependencies": {
+    "electron-builder": "^8.x.x",
+    "electron": "^1.x.x"
+  },
+  "postinstall": "install-app-deps",
+  "engines": {
+    "node": "^6.5.x"
+  },
+  "build": {
+    "productName": "Snap",
+    "appId": "edu.berkeley.snap.snapapp",
+    "mac": {
+      "icon": "build/icon.icns",
+      "category": "public.app-category.education"
     },
-    "keywords": [
-        "Snap",
-        "programming",
-        "blocks",
-        "computer science",
-        "education",
-        "coding"
-    ],
-    "author": "Michael Ball, Jens Mönig, Brian Harvey",
-    "license": "AGPL",
-    "bugs": {
-        "url": "https://github.com/cycomachead/snap-app/issues"
+    "win": {
+      "iconUrl": "http://snap.berkeley.edu/snapsource/favicon.ico"
     },
-    "homepage": "https://github.com/cycomachead/snap-app#readme",
-    "devDependencies": {
-        "electron-builder": "^7.23.x",
-        "electron-prebuilt": "^1.x.x"
-    },
-    "postinstall": "install-app-deps",
-    "peer-dependencies": {
-        "electron": "^1.x.x"
-    },
-    "engines": {
-        "node": "^6.5.x"
-    },
-    "build": {
-        "productName": "Snap",
-        "appId": "edu.berkeley.snap.snapapp",
-        "mac": {
-            "icon": "build/icon.icns",
-            "category": "public.app-category.education"
-        },
-        "win": {
-            "iconUrl": "http://snap.berkeley.edu/snapsource/favicon.ico"
-        },
-        "compression": "store",
-        "publish": {
-            "provider": "github",
-            "vPrefixedTagName": false
-        }
-    },
-    "scripts": {
-        "start": "electron app $@",
-        "pack": "build --dir",
-        "dist": "build",
-        "release": "build"
-    },
-    "private": true
+    "compression": "store",
+    "publish": {
+      "provider": "github",
+      "vPrefixedTagName": false
+    }
+  },
+  "scripts": {
+    "start": "electron app $@",
+    "pack": "build --dir",
+    "dist": "build",
+    "release": "build"
+  },
+  "private": true
 }
