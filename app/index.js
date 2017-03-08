@@ -15,7 +15,8 @@ const updater = require('./autoUpdate');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-// Check for dev mode.
+// Check for dev mode
+// Allows manually activating dev mode by directly launching the executable
 let DEV_MODE = process.env.NODE_ENV === 'development' ||
                    process.argv[0].indexOf('electron') !== -1;
 
