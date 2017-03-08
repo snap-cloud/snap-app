@@ -10,6 +10,7 @@ const {app, BrowserWindow} = electron;
 
 // Local Modules
 const updater = require('./autoUpdate');
+const ArgParser = require('./cli');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -19,6 +20,14 @@ let mainWindow;
 // Allows manually activating dev mode by directly launching the executable
 let DEV_MODE = process.env.NODE_ENV === 'development' ||
                    process.argv[0].indexOf('electron') !== -1;
+
+const OPTIONS = ArgParser.parseArgs();
+let FILE_NAME = 'index.html';
+console.log('OPTIONS', OPTIONS);
+
+if (Object.keys(OPTIONS).includes('autograder')) {
+    FILE_NAME = 'autograder.html';
+}
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -59,7 +68,7 @@ app.on('ready', function() {
     });
 
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: path.join(__dirname, FILE_NAME),
         protocol: 'file:',
         slashes: true
     }));
@@ -91,7 +100,7 @@ app.on('window-all-closed', () => { app.quit() });
 
 
 // save As Stuff
-// TODO: Relocat this.
+// TODO: Relocate this.
 function saveFile(fName, fContents) {
     dialog.showSaveDialog({
         filters: [{
