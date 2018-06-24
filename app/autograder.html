@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Snap! Build Your Own Blocks</title>
+        <link rel="shortcut icon" href="snap/favicon.ico">
+        <script src="snap/morphic.js"></script>
+        <script src="snap/widgets.js"></script>
+        <script src="snap/blocks.js"></script>
+        <script src="snap/threads.js"></script>
+        <script src="snap/objects.js"></script>
+        <script src="snap/gui.js"></script>
+        <script src="snap/paint.js"></script>
+        <script src="snap/lists.js"></script>
+        <script src="snap/byob.js"></script>
+        <script src="snap/tables.js"></script>
+        <script src="snap/xml.js"></script>
+        <script src="snap/store.js"></script>
+        <script src="snap/locale.js"></script>
+        <script src="snap/cloud.js"></script>
+        <script src="snap/sha512.js"></script>
+
+        <!-- <script src="FileSaver.min.js"></script> -->
+
+        <script src="snap-app/morphic.js"></script>
+        <script src="snap-app/gui.js"></script>
+        <script src="snap-app/addons.js"></script>
+        <script src="snap-app/cloud.js"></script>
+        
+        <script src="autograder/ag-files/ag-util.js"></script>
+        <script src="autograder/ag-files/AGAgent.js"></script>
+        <script src="autograder/ag-files/AGFormatting.js"></script>
+        <script src="autograder/ag-files/feedbackLog.js"></script>
+        <script src="autograder/ag-files/help-content.js"></script>
+        <script src="autograder/ag-files/scriptAnalysis.js"></script>
+        <script src="autograder/ag-files/spriteEventLog.js"></script>
+        
+        <script type="text/javascript">
+            var world;
+            window.onload = function () {
+                world = new WorldMorph(document.getElementById('world'));
+                world.worldCanvas.focus();
+                new IDE_Morph().openIn(world);
+                setInterval(loop, 1);
+                alert('loaded AG File');
+            };
+            function loop() {
+                world.doOneCycle();
+            }
+        </script>
+    </head>
+    <body style="margin: 0;">
+        <canvas id="world" tabindex="1" style="position: absolute;" />
+    </body>
+</html>
