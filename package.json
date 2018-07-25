@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/cycomachead/snap-app#readme",
   "devDependencies": {
-    "electron-builder": "^8.x.x",
-    "electron": "^1.x.x"
+    "electron-builder": "^20.x.x",
+    "electron": "^2.0.x"
   },
   "postinstall": "install-app-deps",
   "engines": {
-    "node": "^6.5.x"
+    "node": "^9.x.x"
   },
   "build": {
     "productName": "Snap",
