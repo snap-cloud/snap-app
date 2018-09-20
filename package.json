@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/cycomachead/snap-app#readme",
   "devDependencies": {
-    "electron-builder": "^20.x.x",
-    "electron": "^2.0.x"
+    "electron": "^3.0.0",
+    "electron-builder": "^20.x.x"
   },
   "postinstall": "install-app-deps",
   "engines": {
-    "node": "^9.x.x"
+    "node": "^10.x.x"
   },
   "build": {
     "productName": "Snap",
@@ -37,7 +37,7 @@
       "category": "public.app-category.education"
     },
     "win": {
-      "iconUrl": "http://snap.berkeley.edu/snapsource/favicon.ico"
+      "iconUrl": "https://snap.berkeley.edu/snapsource/favicon.ico"
     },
     "compression": "store",
     "publish": {
