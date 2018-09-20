@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
+const SNAP_INSTALL = `${__dirname}/snap/`;
+
 const {nativeImage} = require('electron');
 
 // Hold Proxied Functions
@@ -39,17 +41,19 @@ defineProxy('saveFileAs',
     }
 
     // saveFile(fileName, fileContents);
-    
+
     // Convert images to node Buffers
     // TODO: Handle other formats (sound?)
     if (fileExt === '.png') {
         img = nativeImage.createFromDataURL(contents);
+        console.log('img:', img);
+        debugger;
         contents = img.toPng();
     }
     // save As Stuff
     // TODO: Show a dialog, but that doesn't work?
     // TODO: What to do about encoding?
-    
+
     fs.writeFile(fileName + fileExt, contents, function (err, resp) {
         if (err) {
             console.log('Error! ', err);
@@ -59,7 +63,7 @@ defineProxy('saveFileAs',
             myself.showMessage('Saved!');
         }
     });
-    
+
     // This doesn't work right now, because it's the wrong electron "context"
     // var dialog = require('electron').dialog;
     // dialog.showSaveDialog({ filters: [
@@ -85,6 +89,9 @@ defineProxy('getURL', function(resourcePath) {
     if (url.parse(resourcePath).protocol) {
         return originalMethod('getURL')(resourcePath);
     }
+    console.log(this);
+    debugger;
+
     let filePath = path.join(__dirname, resourcePath);
     let file = fs.readFileSync(filePath);
     return file.toString();
