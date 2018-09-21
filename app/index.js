@@ -51,8 +51,9 @@ function createWindow() {
 
         // Security Settings
         webPreferences: {
+          contextIsolation: true,
           nodeIntegration: false,
-          // preload: './preload.js'
+          preload: 'preload.js'
         },
 
         // Chrome Overrides
