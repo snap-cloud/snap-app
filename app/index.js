@@ -16,6 +16,7 @@ const updater = require('./autoUpdate');
 let mainWindow;
 
 // Check for dev mode.
+// TODO: use electron-is-dev
 let DEV_MODE = process.env.NODE_ENV === 'development' ||
                    process.argv[0].indexOf('electron') !== -1;
 

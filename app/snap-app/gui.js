@@ -85,14 +85,11 @@ defineProxy('resourceURL', function () {
 });
 
 
-defineProxy('getURL', function(resourcePath) {
+defineProxy('getURL', function(resourcePath, callback) {
     if (url.parse(resourcePath).protocol) {
-        return originalMethod('getURL')(resourcePath);
+        return originalMethod('getURL')(resourcePath, callback);
     }
-    console.log(this);
-    debugger;
-
     let filePath = path.join(__dirname, resourcePath);
     let file = fs.readFileSync(filePath);
-    return file.toString();
+    return callback(file.toString());
 });
