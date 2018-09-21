@@ -47,8 +47,7 @@ defineProxy('saveFileAs',
     if (fileExt === '.png') {
         img = nativeImage.createFromDataURL(contents);
         console.log('img:', img);
-        debugger;
-        contents = img.toPng();
+        contents = img.toPNG();
     }
     // save As Stuff
     // TODO: Show a dialog, but that doesn't work?
