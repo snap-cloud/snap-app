@@ -56,11 +56,7 @@ function createWindow() {
         offscreen: true
     });
 
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
+    mainWindow.loadURL('index.html');
 
     if (DEV_MODE) {
         mainWindow.webContents.openDevTools();
@@ -104,21 +100,21 @@ app.on('window-all-closed', () => { app.quit() });
 
 // save As Stuff
 // TODO: Relocat this.
-function saveFile(fName, fContents) {
-    dialog.showSaveDialog({
-        filters: [{
-            name: 'text',
-            extensions: ['txt']
-        }]
-    }, function(fileName) {
-        if (fileName === undefined) {
-            return;
-        }
-        fs.writeFile(fileName, fContents, function(err) {
-            dialog.showMessageBox({
-                message: "The file has been saved!",
-                buttons: ["OK"]
-            });
-        });
-    });
-}
+// function saveFile(fName, fContents) {
+//     dialog.showSaveDialog({
+//         filters: [{
+//             name: 'text',
+//             extensions: ['txt']
+//         }]
+//     }, function(fileName) {
+//         if (fileName === undefined) {
+//             return;
+//         }
+//         fs.writeFile(fileName, fContents, function(err) {
+//             dialog.showMessageBox({
+//                 message: "The file has been saved!",
+//                 buttons: ["OK"]
+//             });
+//         });
+//     });
+// }
