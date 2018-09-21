@@ -49,6 +49,12 @@ function createWindow() {
         width: width,
         height: height,
 
+        // Security Settings
+        webPreferences: {
+          nodeIntegration: false,
+          // preload: './preload.js'
+        },
+
         // Chrome Overrides
         blinkFeatures: BLINK_FEATURES.join(','),
         defaultFontFamily: 'sansSerif',
@@ -56,7 +62,11 @@ function createWindow() {
         offscreen: true
     });
 
-    mainWindow.loadURL('index.html');
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'index.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
 
     if (DEV_MODE) {
         mainWindow.webContents.openDevTools();
@@ -64,10 +74,6 @@ function createWindow() {
 
     // Check for updates
     updater(mainWindow);
-
-    // Window settings
-    // TODO: these are tests
-    mainWindow.webSecurity = false;
 
     mainWindow.onbeforeunload = () => {};
 
