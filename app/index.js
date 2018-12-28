@@ -74,8 +74,14 @@ app.on('ready', function() {
     // TODO: these are tests
     mainWindow.webSecurity = false;
 
-    mainWindow.onbeforeunload = () => {};
-    
+    mainWindow.on('close', function(evt) {
+        const choice = electron.dialog.showMessageBox({message: 'Really quit Snap? Unsaved changes will be lost!', buttons: ['Cancel', 'Quit']});
+
+        if (choice === 0) {
+            evt.preventDefault();
+        }
+    });
+
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {
         // Dereference the window object, usually you would store windows
