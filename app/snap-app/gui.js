@@ -84,3 +84,26 @@ defineProxy(IDE_Morph, 'getURL', oldGetURL => {
         return file.toString();
     };
 });
+
+// When Ctrl-Q (or Cmd-Q on a Mac) is pressed, close the window. We have to
+// explicitly define this behavior because Snap! captures all keyboard input.
+defineProxy(WorldMorph, 'initEventListeners', oldInitEventListeners => {
+    return function() {
+        oldInitEventListeners.call(this);
+
+        this.worldCanvas.addEventListener('keydown', evt => {
+            let pressedQuit = false;
+            if (evt.keyCode === 81) {
+                if (process.platform === 'darwin' && evt.metaKey) {
+                    pressedQuit = true;
+                } else if (evt.ctrlKey) {
+                    pressedQuit = true;
+                }
+            }
+
+            if (pressedQuit) {
+                remote.getCurrentWindow().close();
+            }
+        });
+    };
+});
