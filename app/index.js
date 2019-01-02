@@ -6,7 +6,7 @@ const http = require('http');
 
 // Electrom Modules
 const electron = require('electron');
-const {app, BrowserWindow} = electron;
+const { app, BrowserWindow } = electron;
 
 // Local Modules
 const updater = require('./autoUpdate');
@@ -16,6 +16,7 @@ const updater = require('./autoUpdate');
 let mainWindow;
 
 // Check for dev mode.
+// TODO: use electron-is-dev
 let DEV_MODE = process.env.NODE_ENV === 'development' ||
                    process.argv[0].indexOf('electron') !== -1;
 
@@ -41,14 +42,19 @@ BLINK_FEATURES = [
     'MediaCaptureFromCanvas'
 ];
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-app.on('ready', function() {
+function createWindow() {
     // Create the browser window.
     const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
     mainWindow = new BrowserWindow({
         width: width,
         height: height,
+
+        // Security Settings
+        webPreferences: {
+          contextIsolation: true,
+          nodeIntegration: false,
+          preload: './preload.js'
+        },
 
         // Chrome Overrides
         blinkFeatures: BLINK_FEATURES.join(','),
@@ -66,46 +72,34 @@ app.on('ready', function() {
     if (DEV_MODE) {
         mainWindow.webContents.openDevTools();
     }
-    
+
     // Check for updates
     updater(mainWindow);
-    
-    // Window settings
-    // TODO: these are tests
-    mainWindow.webSecurity = false;
 
     mainWindow.onbeforeunload = () => {};
-    
+
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
+
+        // TODO: Warn to save a project?
         mainWindow = null;
     });
+}
 
+app.on('activate', () => {
+  // On macOS it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (win === null) {
+    createWindow();
+  }
 });
 
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+app.on('ready', createWindow);
+
 app.on('window-all-closed', () => { app.quit() });
-
-
-// save As Stuff
-// TODO: Relocat this.
-function saveFile(fName, fContents) {
-    dialog.showSaveDialog({
-        filters: [{
-            name: 'text',
-            extensions: ['txt']
-        }]
-    }, function(fileName) {
-        if (fileName === undefined) {
-            return;
-        }
-        fs.writeFile(fileName, fContents, function(err) {
-            dialog.showMessageBox({
-                message: "The file has been saved!",
-                buttons: ["OK"]
-            });
-        });
-    });
-}
