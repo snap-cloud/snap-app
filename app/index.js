@@ -53,7 +53,7 @@ function createWindow() {
         webPreferences: {
           contextIsolation: true,
           nodeIntegration: false,
-          preload: 'preload.js'
+          preload: './preload.js'
         },
 
         // Chrome Overrides
@@ -93,7 +93,7 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
-    createWindow()
+    createWindow();
   }
 });
 
@@ -103,25 +103,3 @@ app.on('activate', () => {
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => { app.quit() });
-
-
-// save As Stuff
-// TODO: Relocat this.
-// function saveFile(fName, fContents) {
-//     dialog.showSaveDialog({
-//         filters: [{
-//             name: 'text',
-//             extensions: ['txt']
-//         }]
-//     }, function(fileName) {
-//         if (fileName === undefined) {
-//             return;
-//         }
-//         fs.writeFile(fileName, fContents, function(err) {
-//             dialog.showMessageBox({
-//                 message: "The file has been saved!",
-//                 buttons: ["OK"]
-//             });
-//         });
-//     });
-// }

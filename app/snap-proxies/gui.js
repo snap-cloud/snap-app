@@ -1,5 +1,7 @@
-// Hold Proxied Functions
+// Holds Proxied Functions
+// These are overrides to main Snap! methods.
 // TODO: Consider using ES6 Proxies?
+
 GLOBAL_DEFINITIONS = {};
 
 function originalMethod(functionName) {

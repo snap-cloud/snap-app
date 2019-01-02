@@ -1,7 +1,7 @@
 {
     "name": "Snap!",
     "author": "Jens Mönig, Brian Harvey, Bernat Romagosa, Michael Ball",
-    "version": "0.0.8",
+    "version": "0.0.10",
     "main": "index.js",
     "description": "An offline desktop Snap! app",
     "dependencies": {},
